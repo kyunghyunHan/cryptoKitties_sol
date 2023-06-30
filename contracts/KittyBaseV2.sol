@@ -1,18 +1,18 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.17;
 
-import "./KittyAccessControl.sol";
+import "./KittyAccessControlV2.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
 /*상속 */
-contract KittyBase is KittyAccessControl, ERC721Enumerable, ERC721Holder {
+contract KittyBaseV2 is KittyAccessControlV2, ERC721Enumerable, ERC721Holder {
 
     string _name = "CryptoKitties";
     string _symbol = "CK";
     constructor() ERC721(_name, _symbol) {}
 
 /*Kitty가 민팅될떄마다 Birth이벤트발생 */
-event Birth(address indexed owner, uint256 kittyId, uint256 matronId, uint256 sireId, uint256 genes);
+    event Birth(address indexed owner, uint256 kittyId, uint256 matronId, uint256 sireId, uint256 genes);
 
 /* Kitty가 transfer될떄마다 Transfer이벤트발생*/
 // event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
@@ -62,24 +62,24 @@ event Birth(address indexed owner, uint256 kittyId, uint256 matronId, uint256 si
     Kitty[] kitties;
     
     /* 해당 키티가 누구 소유인지 */
-    mapping (uint256 => address) public kittyIndexToOwner;
+    // mapping (uint256 => address) public kittyIndexToOwner;
     /* 해당 계정이 몇개의 Kitty소유하는지 */
-    mapping (address => uint256) ownershipTokenCount;
+    // mapping (address => uint256) ownershipTokenCount;
     /* transferFrom을 콜하려는 대상을 appove*/
-    mapping (uint256 => address) public kittyIndexToApproved;
+    // mapping (uint256 => address) public kittyIndexToApproved;
     /*교배 대상 stringKittyID에대해 siring apprve가 되어야함 */
     mapping (uint256 => address) public sireAllowedToAddress;
 
     /*키티를 전송하는 internal함수 */
     function _transfer(address _from, address _to, uint256 _tokenId) override internal virtual {
  
-        ownershipTokenCount[_to]++;
+        // ownershipTokenCount[_to]++;
    
-        kittyIndexToOwner[_tokenId] = _to;
+        // kittyIndexToOwner[_tokenId] = _to;
         if (_from != address(0)) {
-            ownershipTokenCount[_from]--;
+            // ownershipTokenCount[_from]--;
             delete sireAllowedToAddress[_tokenId];
-            delete kittyIndexToApproved[_tokenId];
+            // delete kittyIndexToApproved[_tokenId];
         }
         // Transfer(_from, _to, _tokenId);
         super._transfer(_from, _to, _tokenId);
