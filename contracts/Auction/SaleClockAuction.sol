@@ -5,7 +5,7 @@ import "./ClockAuction.sol";
 contract SaleClockAuction is ClockAuction {
 
     bool public isSaleClockAuction = true;
-    
+     //현재까지 판매된 0세대 키티수
     uint256 public gen0SaleCount;
     uint256[5] public lastGen0SalePrices;
 

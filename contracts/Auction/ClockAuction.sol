@@ -30,7 +30,7 @@ contract ClockAuction is Pausable, Ownable, ClockAuctionBase {
         require(success, "Failed to send ETH to nftAddress");
     }
 
-  
+    
     function createAuction(
         uint256 _tokenId,
         uint256 _startingPrice,
